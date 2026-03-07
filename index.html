@@ -54,11 +54,11 @@
         <main id="main-view" class="flex-grow overflow-y-auto p-4 pb-24"></main>
 
         <nav class="fixed bottom-0 w-full glass p-4 flex justify-between px-6 z-50">
-            <button onclick="changeView('terminal')" class="opacity-40 text-main" id="n-term"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+            <button onclick="changeView('terminal')" class="opacity-40 text-main" id="n-terminal"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
             <button onclick="changeView('wire')" class="opacity-40" id="n-wire"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg></button>
-            <button onclick="changeView('submission')" class="opacity-40" id="n-sub"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></button>
-            <button onclick="changeView('drill')" class="opacity-40" id="n-dril"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></button>
-            <button onclick="changeView('mistresses')" class="opacity-40" id="n-mast"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></button>
+            <button onclick="changeView('submission')" class="opacity-40" id="n-submission"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></button>
+            <button onclick="changeView('drill')" class="opacity-40" id="n-drill"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></button>
+            <button onclick="changeView('mistresses')" class="opacity-40" id="n-mistresses"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></button>
         </nav>
     </div>
 
@@ -95,8 +95,8 @@
         function changeView(v) {
             const main = document.getElementById('main-view');
             document.querySelectorAll('nav button').forEach(b => b.classList.add('opacity-40'));
-            const btnId = 'n-' + v.substring(0,4);
-            if(document.getElementById(btnId)) document.getElementById(btnId).classList.remove('opacity-40');
+            const btnId = 'n-' + v;
+            if(document.getElementById(btnId)) if(document.getElementById(btnId)) document.getElementById(btnId).classList.remove('opacity-40');
             if(v === 'terminal') {
                 main.innerHTML = `<div class="aspect-video rounded-2xl overflow-hidden border border-white/5 bg-black"><video class="w-full h-full object-cover spun" loop muted autoplay playsinline src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-circuit-board-1653-large.mp4"></video></div><div class="mt-4 grid grid-cols-2 gap-3"><div class="bg-white/5 p-4 rounded-xl text-main text-center"><p class="text-[7px] opacity-40 uppercase font-bold">Sissy Sincronizzate</p><p class="text-sm font-black">${state.activeKittens}</p></div><div class="bg-white/5 p-4 rounded-xl text-main text-center"><p class="text-[7px] opacity-40 uppercase font-bold">Carico Sissy</p><p class="text-sm font-black text-[#ffcc00]">98.4%</p></div></div>`;
             } else if(v === 'wire') {
