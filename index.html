@@ -79,7 +79,7 @@
         const wheelTasks = ["RESA SISSY", "10 MIN EDGE", "SACRIFICIO €25", "100 SQUAT", "ABBAIA PER SISSY", "NUKE AI BENI", "SPINTA COLLATERALE", "LEGAME DI SETA", "CONTENIMENTO SISSY", "DRENAGGIO €10", "20 MIN EDGE", "VUOTO TOTALE", "DISTRUZIONE EGO", "PROTOCOLLO SILENZIO", "DRILL 1000", "SCELTA MISTRESS"];
         const mistresses = [{name:"GOTH RAVEN", role:"MADRE DI SETA"}, {name:"SUCCUBUS LILY", role:"DRENA BENI"}, {name:"MATRIARCA", role:"ALVEARE ALPHA"}, {name:"REGINA BEE", role:"REGINA PROTOCOLLO"}];
         
-        let state = { dollId: "SISSY_ANONIMA", sacrifice: 0, activeKittens: Math.floor(Math.random()*150+30), chatHistory: "", currentRotation: 0, decreeIdx: 0 };
+        let state = { dollId: "SISSY_ANONIMA", sacrifice: 0, activeKittens: Math.floor(Math.random()*150+30), chatHistory: "", currentRotation: 0, decreeIdx: 0, lastAction: Date.now() };
 
         function acceptConsent() { 
             const userIn = document.getElementById('username-in').value;
@@ -91,9 +91,23 @@
             document.getElementById('doll-display').innerText = state.dollId;
             document.getElementById('sacrifice-total').innerText = "€" + state.sacrifice.toFixed(2);
             changeView('terminal'); startChatLoop(); startMistressTicker();
+            startEntropyTax();
         }
 
-        function changeView(v) {
+        function startEntropyTax() {
+            setInterval(() => {
+                const idleTime = Date.now() - state.lastAction;
+                if(idleTime > 300000) {
+                    state.sacrifice += 1.00;
+                    document.getElementById('sacrifice-total').innerText = "€" + state.sacrifice.toFixed(2);
+                    localStorage.setItem('it_silk_sac_' + state.dollId, state.sacrifice);
+                    const msg = `<div class='bg-red-500/10 p-2 rounded text-[7px] text-red-500 border border-red-500/20 uppercase font-bold text-center'>SISTEMA: ENTROPIA RILEVATA. NODO INATTIVO TASSATO €1.00</div>`;
+                    const chat = document.getElementById('chat'); if(chat) { chat.innerHTML += msg; chat.scrollTop = chat.scrollHeight; }
+                }
+            }, 60000);
+        }
+
+        function changeView(v) { state.lastAction = Date.now();
             const main = document.getElementById('main-view');
             document.querySelectorAll('nav button').forEach(b => b.classList.add('opacity-40'));
             const btn = document.getElementById('n-' + v);
@@ -145,7 +159,7 @@
             }, 4000);
         }
 
-        function spinWheel() {
+        function spinWheel() { state.lastAction = Date.now();
             const w = document.getElementById('wheel'); if(!w) return;
             const extraDeg = 1800 + Math.floor(Math.random() * 1800);
             state.currentRotation += extraDeg;
@@ -206,7 +220,7 @@
             }, 1000);
         }
 
-        function sendMsg() { 
+        function sendMsg() { state.lastAction = Date.now(); 
             const input = document.getElementById('msg-in'); if(!input.value) return;
             const chat = document.getElementById('chat');
             const msgHtml = `<div class="text-right"><p class="text-[7px] font-mono text-main">TU (${state.dollId})</p><p class="text-sm opacity-80 mt-1 italic">${input.value}</p></div>`;
